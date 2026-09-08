@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rock Paper Scissors</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="game"><h1>🎮 Rock Paper Scissors</h1><p class="sub">DevOps CI/CD Demo</p>
+<div class="choices">
+<button onclick="play('rock')">🪨<span>Rock</span></button>
+<button onclick="play('paper')">📄<span>Paper</span></button>
+<button onclick="play('scissors')">✂️<span>Scissors</span></button>
+</div>
+<section class="result"><div>You: <b id="you">—</b></div><div>Computer: <b id="computer">—</b></div><h2 id="result">Choose your move!</h2></section>
+<div class="score">You <b id="ys">0</b> : <b id="cs">0</b> Computer</div>
+<button class="reset" onclick="resetGame()">Reset Score</button></main>
+<script>
+let y=0,c=0;
+async function play(move){
+ const r=await fetch('/api/play?move='+move); const d=await r.json();
+ you.textContent=d.player.toUpperCase(); computer.textContent=d.computer.toUpperCase(); result.textContent=d.result;
+ if(d.result==='YOU WIN') y++; else if(d.result==='COMPUTER WINS') c++;
+ ys.textContent=y; cs.textContent=c;
+}
+function resetGame(){y=0;c=0;ys.textContent=0;cs.textContent=0;you.textContent='—';computer.textContent='—';result.textContent='Choose your move!';}
+</script></body></html>
