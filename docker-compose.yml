@@ -1,0 +1,7 @@
+services:
+  game:
+    build: .
+    container_name: rock-paper-scissors
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
